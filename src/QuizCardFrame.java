@@ -1,5 +1,3 @@
-import com.sun.java.swing.action.FileMenu;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
