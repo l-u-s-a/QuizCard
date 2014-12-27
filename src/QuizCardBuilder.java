@@ -6,20 +6,28 @@ import java.util.ArrayList;
  */
 public class QuizCardBuilder {
     public static ArrayList<QuizCard> cardList = new ArrayList();
-    private QuizCard currentCard;
-    private int currentCardIndex;
+    private static QuizCard currentCard;
+    private static int currentCardIndex;
     private JFrame frame;
-    private JButton nextButton;
-    private boolean isShowAnswer;
+    private static JButton nextButton;
+    private static boolean isShowAnswer;
 
     public static void main(String[] args) {
         QuizCardBuilder quizCardBuilder = new QuizCardBuilder();
         quizCardBuilder.go();
     }
 
-    public void go() {
-        frame = new QuizCardBuilderFrame();
 
+    public void go() {
+        frame = new QuizCardFrame();
+    }
+
+    public static void reset() {
+        cardList = new ArrayList<QuizCard>();
+        currentCard = null;
+        currentCardIndex = 0;
+        nextButton = null;
+        isShowAnswer = false;
     }
 
 }
