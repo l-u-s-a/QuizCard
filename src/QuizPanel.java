@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class QuizPanel extends JPanel {
-    protected QueryPanel questionPanel = new QuestionPanel();
-    protected QueryPanel answerPanel = new AnswerPanel();
+    protected QuestionPanel questionPanel;
+    protected AnswerPanel answerPanel;
 
     protected QuizPanel() {
+        questionPanel = new QuestionPanel();
+        answerPanel = new AnswerPanel();
     }
 
     public QueryPanel getQuestionPanel() {
@@ -28,7 +30,6 @@ public class QuizPanel extends JPanel {
         answerPanel.getTextArea().setText("");
     }
 
-
 }
 
 class QuizBuilderPanel extends QuizPanel {
@@ -38,6 +39,8 @@ class QuizBuilderPanel extends QuizPanel {
         add(questionPanel);
         add(answerPanel);
         answerPanel.getButton().addActionListener(new NextCardListener());
+        questionPanel.getTextArea().setEditable(true);
+        answerPanel.getTextArea().setEditable(true);
     }
 
     private class NextCardListener implements ActionListener {
@@ -47,34 +50,11 @@ class QuizBuilderPanel extends QuizPanel {
             clearTextFields();
         }
     }
-
-    private class SaveMenuListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.showSaveDialog(getParent());
-            saveFile(fileChooser.getSelectedFile());
-        }
-    }
-
-    private void saveFile(File selectedFile) {
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(selectedFile));
-            for (QuizCard quizCard : QuizCardBuilder.cardList) {
-                bufferedWriter.write(quizCard.getQuestion() + " -> ");
-                bufferedWriter.write(quizCard.getAnswer() + "\n");
-            }
-            bufferedWriter.flush();
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
 
 class QuizPlayerPanel extends QuizPanel {
 
-    private Iterator<QuizCard> iterator = QuizCardBuilder.cardList.iterator();
+    private Iterator<QuizCard> iterator;
 
     public void setIterator(Iterator<QuizCard> iterator) {
         this.iterator = iterator;
@@ -85,6 +65,7 @@ class QuizPlayerPanel extends QuizPanel {
     }
 
     public QuizPlayerPanel() {
+        setIterator(QuizCardBuilder.cardList.iterator());
         setLayout(new BorderLayout());
         add(BorderLayout.CENTER, questionPanel);
         configurePanels();
@@ -113,7 +94,6 @@ class QuizPlayerPanel extends QuizPanel {
         setLayout(new BorderLayout());
         add(BorderLayout.CENTER, questionPanel);
         questionPanel.getButton().setVisible(true);
-
     }
 
 
@@ -138,6 +118,4 @@ class QuizPlayerPanel extends QuizPanel {
             }
         }
     }
-
-
 }

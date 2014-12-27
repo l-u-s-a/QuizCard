@@ -4,13 +4,13 @@ import java.awt.*;
 public class QueryPanel extends JPanel {
     protected JTextArea textArea = new JTextArea();
     protected JButton button = new JButton();
-    private boolean isQuestion;
 
     protected QueryPanel() {
         setLayout(new BorderLayout());
         add(BorderLayout.CENTER, textArea);
         add(BorderLayout.SOUTH, button);
         textArea.setLineWrap(true);
+//        setVisible(true);
     }
 
 
@@ -22,9 +22,6 @@ public class QueryPanel extends JPanel {
         return button;
     }
 
-    public boolean isQuestion() {
-        return isQuestion;
-    }
 }
 
 class QuestionPanel extends QueryPanel {
