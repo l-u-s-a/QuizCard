@@ -9,7 +9,7 @@ public class QuizCardBuilder {
     public static ArrayList<QuizCard> cardList = new ArrayList<QuizCard>();
     private static QuizCard currentCard;
     private static int currentCardIndex;
-    public static JFrame frame;
+    public static QuizCardFrame frame;
     private static JButton nextButton;
     private static boolean isShowAnswer;
 
