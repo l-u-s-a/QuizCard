@@ -10,7 +10,7 @@ public class QueryPanel extends JPanel {
         add(BorderLayout.CENTER, textArea);
         add(BorderLayout.SOUTH, button);
         textArea.setLineWrap(true);
-//        setVisible(true);
+        setVisible(true);
     }
 
 

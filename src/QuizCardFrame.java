@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Luka on 23/12/14.
@@ -10,27 +11,21 @@ import java.io.*;
 public class QuizCardFrame extends JFrame {
     private QuizPlayerPanel quizPlayerPanel;
     private QuizBuilderPanel quizBuilderPanel;
+    private Container container = new JPanel(new CardLayout());
+    private final String player = "player";
+    private final String builder = "builder";
+    private final String welcome = "welcome";
+
 
     public QuizCardFrame() {
-        setLayout(new BorderLayout());
         setSize(640, 500);
         addMenuCompoments();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new BorderLayout());
         setVisible(true);
-    }
-
-    private void resetFrame() {
-        if (quizPlayerPanel != null ) {
-            quizPlayerPanel.validate();
-            quizPlayerPanel.removeAll();
-            quizPlayerPanel = null;
-        }
-        if (quizBuilderPanel != null) {
-            quizBuilderPanel.validate();
-            quizBuilderPanel.removeAll();
-            quizBuilderPanel = null;
-        }
-        QuizCardBuilder.reset();
+//        container.add(welcomePanel, welcome);
+//        container.add(quizPlayerPanel, player);
+//        container.add(quizBuilderPanel, builder);
     }
 
 
@@ -52,22 +47,12 @@ public class QuizCardFrame extends JFrame {
         saveFile.addActionListener(new SaveMenuListener());
     }
 
-    private void setupPlayerPanel() {
-        quizPlayerPanel = new QuizPlayerPanel();
-        quizPlayerPanel.setIterator(QuizCardBuilder.cardList.iterator());
-        setLayout(new BorderLayout());
-        add(BorderLayout.CENTER, quizPlayerPanel);
-        setVisible(true);
-        repaint();
-    }
-
     private class SaveMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.showSaveDialog(getParent());
             saveFile(fileChooser.getSelectedFile());
-            repaint();
         }
     }
 
@@ -89,25 +74,34 @@ public class QuizCardFrame extends JFrame {
     private class NewCardBuilderListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            resetFrame();
+            getContentPane().removeAll();
+            QuizCardBuilder.reset();
             quizBuilderPanel = new QuizBuilderPanel();
-            setLayout(new BorderLayout());
-            add(BorderLayout.CENTER, quizBuilderPanel);
-            setVisible(true);
+            getContentPane().add(BorderLayout.CENTER, quizBuilderPanel);
+            revalidate();
+            }
         }
-    }
 
     private class LoadCardPlayerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            getContentPane().removeAll();
             JFileChooser loadFile = new JFileChooser();
             loadFile.showOpenDialog(getParent());
-            loadCards(loadFile.getSelectedFile());
-            setupPlayerPanel();
+            QuizCardBuilder.reset();
+            if (loadFile.getSelectedFile() != null) {
+                loadCards(loadFile.getSelectedFile());
+                quizPlayerPanel = new QuizPlayerPanel();
+                getContentPane().add(BorderLayout.CENTER, quizPlayerPanel);
+//                        ((CardLayout) container.getLayout()).show(container, player);
+                revalidate();
+            }
+
         }
+    }
 
         private void loadCards(File selectedFile) {
-            resetFrame();
+            QuizCardBuilder.reset();
             try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(selectedFile));
                 String line = null;
@@ -127,4 +121,3 @@ public class QuizCardFrame extends JFrame {
             }
         }
     }
-}

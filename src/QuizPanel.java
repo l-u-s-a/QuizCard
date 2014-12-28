@@ -36,6 +36,7 @@ class QuizBuilderPanel extends QuizPanel {
     public QuizBuilderPanel() {
         setLayout(new GridLayout(2, 1));
         questionPanel.getButton().setVisible(false);
+        questionPanel.getButton().setEnabled(false);
         add(questionPanel);
         add(answerPanel);
         answerPanel.getButton().addActionListener(new NextCardListener());
@@ -111,7 +112,7 @@ class QuizPlayerPanel extends QuizPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!iterator.hasNext()) {
-                JOptionPane.showMessageDialog(getParent(), "That's last question!");
+                JOptionPane.showMessageDialog(getParent(), "No more questions!");
             } else {
                 loadNextCard();
                 fillWithQuestionPanel();
