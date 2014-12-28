@@ -10,6 +10,7 @@ public class NewCardBuilderListener extends Listener {
         QuizCardBuilder.reset();
         QuizBuilderPanel newQuizBuilderPanel = new QuizBuilderPanel();
         frame.setQuizBuilderPanel(newQuizBuilderPanel);
+        MyJMenuBar.getClearTextAreas().setEnabled(true);
 
         contentPane.add(BorderLayout.CENTER, newQuizBuilderPanel);
         QuizCardBuilder.frame.revalidate();

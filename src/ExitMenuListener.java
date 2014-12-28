@@ -21,7 +21,7 @@ public class ExitMenuListener extends WindowAdapter implements ActionListener {
     }
 
     private void openDialog() {
-        int answer = JOptionPane.showConfirmDialog(QuizCardBuilder.frame.getParent(), "Are you sure?", "Closing", JOptionPane.YES_NO_OPTION);
+        int answer = JOptionPane.showConfirmDialog(QuizCardBuilder.frame, "Are you sure?", "Closing", JOptionPane.YES_NO_OPTION);
 
         if (answer == JOptionPane.YES_OPTION)
             System.exit(0);

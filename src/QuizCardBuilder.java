@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by Luka on 23/12/14.
  */
 public class QuizCardBuilder {
+    public static final String version = "1.00";
     public static ArrayList<QuizCard> cardList = new ArrayList<QuizCard>();
     private static QuizCard currentCard;
     private static int currentCardIndex;

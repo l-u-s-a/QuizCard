@@ -25,6 +25,15 @@ public class QuizCardFrame extends JFrame {
         setVisible(true);
     }
 
+    public QuizPlayerPanel getQuizPlayerPanel() {
+        return quizPlayerPanel;
+    }
+
+    public QuizBuilderPanel getQuizBuilderPanel() {
+        return quizBuilderPanel;
+    }
+
+
     public void setQuizPlayerPanel(QuizPlayerPanel quizPlayerPanel) {
         this.quizPlayerPanel = quizPlayerPanel;
     }

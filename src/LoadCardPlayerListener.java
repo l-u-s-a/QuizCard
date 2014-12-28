@@ -15,6 +15,7 @@ public class LoadCardPlayerListener extends Listener {
             loadCards(loadFile.getSelectedFile());
             QuizPlayerPanel newQuizPlayerPanel = new QuizPlayerPanel();
             frame.setQuizPlayerPanel(newQuizPlayerPanel);
+            MyJMenuBar.getClearTextAreas().setEnabled(false);
             contentPane.add(BorderLayout.CENTER, newQuizPlayerPanel);
             frame.revalidate();
         }
